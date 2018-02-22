@@ -2,14 +2,18 @@ const fields = Array.from(document.querySelectorAll(".square"));
 let currentPlayer = "X";
 
 fields.forEach(field => field.addEventListener("click", function() {
-  if (this.innerHTML === "") {
+  if (this.innerHTML === "") { //use the field only if it's empty
     this.innerHTML = currentPlayer;
     let fieldCoords = this.dataset.no.split(",");
-    console.log(fieldCoords);
-    console.log(fieldCoords[0]);
-    if (checkIfGameEnded(fieldCoords[0], fieldCoords[1], currentPlayer)) {
+    const row = parseInt(fieldCoords[0]);
+    const col = parseInt(fieldCoords[1]);
+    // console.log("Row: " + row + " " + typeof(row));
+    // console.log("fieldCoords: " + fieldCoords + " " + typeof(fieldCoords));
+    // console.log("fieldCoords[0] " + fieldCoords[0] + " " + typeof(fieldCoords[0]));
+    if (checkIfGameEnded(row, col, currentPlayer)) {
      console.log(currentPlayer + " won"); 
-     clearBoard();
+     showWinner(currentPlayer);
+    //  clearBoard();
     }
     changePlayer();
   } 
@@ -35,7 +39,14 @@ function checkIfGameEnded(row, col, symb) {
   if ([newFields[0][col], newFields[1][col], newFields[2][col]].every(x => x.innerHTML === symb)) {
     return true;
   }
-  //diagonal missing
+  if (row === col && [newFields[0][0], newFields[1][1], newFields[2][2]].every(x => x.innerHTML === symb)) {
+    return true;
+  }
+  console.log("row + col = " + (row + col)); 
+
+  if ((row + col == 2) && [newFields[0][2], newFields[1][1], newFields[2][0]].every(x => x.innerHTML === symb)) {
+    return true;
+  }
   return false;
 }
 
@@ -52,3 +63,6 @@ function clearBoard() {
 //   }
 // }
 
+function showWinner() {
+
+}
