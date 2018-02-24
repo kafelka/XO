@@ -30,6 +30,7 @@ body {
   left: 43vw; top: 20vw;
   font-size: 2vw;
   text-align: center;
+  visibility: hidden;
 }
 
 

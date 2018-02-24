@@ -1,9 +1,12 @@
 const fields = Array.from(document.querySelectorAll(".square"));
-console.log(fields);
 let currentPlayer = "X";
+let gameFinished = false;
+let clickCounter = 0;
 
 fields.forEach(field => field.addEventListener("click", function() {
-  if (this.innerHTML === "") { //use the field only if it's empty
+  if (this.innerHTML === "" && !gameFinished) { //use the field only if it's empty
+    clickCounter++;  
+    console.log(clickCounter);
     this.innerHTML = currentPlayer;
     let fieldCoords = this.dataset.no.split(",");
     const row = parseInt(fieldCoords[0]);
@@ -12,8 +15,10 @@ fields.forEach(field => field.addEventListener("click", function() {
     // console.log("fieldCoords: " + fieldCoords + " " + typeof(fieldCoords));
     // console.log("fieldCoords[0] " + fieldCoords[0] + " " + typeof(fieldCoords[0]));
     if (checkIfGameEnded(row, col, currentPlayer)) {
-     console.log(currentPlayer + " won"); 
-     showWinner(currentPlayer);
+      console.log(currentPlayer + " won"); 
+      showWinner(currentPlayer);
+    } else if (clickCounter == 9) {
+      showWinner(null);
     }
     changePlayer();
   } 
@@ -54,6 +59,9 @@ function clearBoard() {
     document.querySelectorAll(".square").forEach(function(x){
       x.innerHTML = "";
     });
+    output.style.visibility = "hidden";
+    gameFinished = false;
+    clickCounter = 0;
     // document.querySelectorAll(".square").forEach(y => y.innerHTML = "");
     
   // newFields.forEach(x => x.forEach(y => y.innerHTML = ""));
@@ -70,8 +78,14 @@ function clearBoard() {
 let output = document.querySelector(".output");
 output.addEventListener("click", clearBoard);
 
-// function showWinner(player) {
-//   document.body.wid
-// }
+function showWinner(player) {
+  output.style.visibility = "visible";
+  if (player == null) {
+    output.innerHTML = "It's a draw!";
+  } else {
+    output.innerHTML = player + " won";
+  }
+  gameFinished = true;
+}
 
 
