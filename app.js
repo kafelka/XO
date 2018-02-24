@@ -1,4 +1,5 @@
 const fields = Array.from(document.querySelectorAll(".square"));
+console.log(fields);
 let currentPlayer = "X";
 
 fields.forEach(field => field.addEventListener("click", function() {
@@ -13,7 +14,6 @@ fields.forEach(field => field.addEventListener("click", function() {
     if (checkIfGameEnded(row, col, currentPlayer)) {
      console.log(currentPlayer + " won"); 
      showWinner(currentPlayer);
-    //  clearBoard();
     }
     changePlayer();
   } 
@@ -51,7 +51,11 @@ function checkIfGameEnded(row, col, symb) {
 }
 
 function clearBoard() {
-  document.querySelectorAll(".square").forEach(y => y.innerHTML = "");
+    document.querySelectorAll(".square").forEach(function(x){
+      x.innerHTML = "";
+    });
+    // document.querySelectorAll(".square").forEach(y => y.innerHTML = "");
+    
   // newFields.forEach(x => x.forEach(y => y.innerHTML = ""));
 }
 
@@ -63,6 +67,11 @@ function clearBoard() {
 //   }
 // }
 
-function showWinner() {
+let output = document.querySelector(".output");
+output.addEventListener("click", clearBoard);
 
-}
+// function showWinner(player) {
+//   document.body.wid
+// }
+
+
