@@ -4,10 +4,26 @@ let gameFinished = false;
 let clickCounter = 0;
 let output = document.querySelector(".output");
 
+
+function startGame(player) {  //gdzie te funkcje wywolac?
+  output.style.visibility = "visible";
+  output.innerHTML = `
+  Select player
+  <button>X</button>
+  <button>O</button>
+  `
+  let btn = document.querySelectorAll("button");
+  btn.forEach(b => b.addEventListener("click", setCurrentPlayer));
+}
+startGame();
+
+function setCurrentPlayer(playerBtn) {
+  currentPlayer = this.innerHTML;
+}
+
 fields.forEach(field => field.addEventListener("click", function() {
   if (this.innerHTML === "" && !gameFinished) { 
     clickCounter++;  
-    console.log(clickCounter);
     this.innerHTML = currentPlayer;
     let fieldCoords = this.dataset.no.split(",");
     const row = parseInt(fieldCoords[0]);
@@ -35,10 +51,13 @@ function changePlayer() {
   } else {
     currentPlayer = "X";
   }
+
 };
 
+
+
 function winningFields(f) {
-  f.style.color = "green";
+  f.style.color = "rgb(20, 16, 240)";
 }
 
 function checkIfGameEnded(row, col, symb) {
@@ -80,3 +99,6 @@ function showWinner(player) {
   }
   gameFinished = true;
 }
+
+
+
