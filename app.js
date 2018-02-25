@@ -2,16 +2,16 @@ const fields = Array.from(document.querySelectorAll(".square"));
 let currentPlayer = "X";
 let gameFinished = false;
 let clickCounter = 0;
+let output = document.querySelector(".output");
 
 fields.forEach(field => field.addEventListener("click", function() {
-  if (this.innerHTML === "" && !gameFinished) { //use the field only if it's empty
+  if (this.innerHTML === "" && !gameFinished) { 
     clickCounter++;  
     console.log(clickCounter);
     this.innerHTML = currentPlayer;
     let fieldCoords = this.dataset.no.split(",");
     const row = parseInt(fieldCoords[0]);
     const col = parseInt(fieldCoords[1]);
-    // console.log("Row: " + row + " " + typeof(row));
     // console.log("fieldCoords: " + fieldCoords + " " + typeof(fieldCoords));
     // console.log("fieldCoords[0] " + fieldCoords[0] + " " + typeof(fieldCoords[0]));
     if (checkIfGameEnded(row, col, currentPlayer)) {
@@ -37,46 +37,39 @@ function changePlayer() {
   }
 };
 
+function winningFields(f) {
+  f.style.color = "green";
+}
+
 function checkIfGameEnded(row, col, symb) {
   if (newFields[row].every(x => x.innerHTML === symb)) {
+    newFields[row].forEach(x => winningFields(x));
     return true;
   } 
   if ([newFields[0][col], newFields[1][col], newFields[2][col]].every(x => x.innerHTML === symb)) {
+    [newFields[0][col], newFields[1][col], newFields[2][col]].forEach(x => winningFields(x));
     return true;
   }
   if (row === col && [newFields[0][0], newFields[1][1], newFields[2][2]].every(x => x.innerHTML === symb)) {
+    [newFields[0][0], newFields[1][1], newFields[2][2]].forEach(x => winningFields(x));
     return true;
   }
-  console.log("row + col = " + (row + col)); 
-
   if ((row + col == 2) && [newFields[0][2], newFields[1][1], newFields[2][0]].every(x => x.innerHTML === symb)) {
+    [newFields[0][2], newFields[1][1], newFields[2][0]].forEach(x => winningFields(x));
     return true;
   }
   return false;
 }
 
-function clearBoard() {
-    document.querySelectorAll(".square").forEach(function(x){
-      x.innerHTML = "";
-    });
-    output.style.visibility = "hidden";
-    gameFinished = false;
-    clickCounter = 0;
-    // document.querySelectorAll(".square").forEach(y => y.innerHTML = "");
-    
-  // newFields.forEach(x => x.forEach(y => y.innerHTML = ""));
-}
-
-// function clearBoard() {
-//   for (i = 0; i <= 2; i++) {
-//     for (j = 0; j <= 2; j++) {
-//       newFields[i][j].innerHTML = "";
-//     }
-//   }
-// }
-
-let output = document.querySelector(".output");
-output.addEventListener("click", clearBoard);
+output.addEventListener("click", function clearBoard() {
+  document.querySelectorAll(".square").forEach(function(x){
+    x.innerHTML = "";
+    x.style.color = "black";
+  });
+  this.style.visibility = "hidden";
+  gameFinished = false;
+  clickCounter = 0;
+});
 
 function showWinner(player) {
   output.style.visibility = "visible";
@@ -87,5 +80,3 @@ function showWinner(player) {
   }
   gameFinished = true;
 }
-
-
