@@ -7,7 +7,7 @@ let yourTurn = document.querySelector(".whosturn p");
 let gameOver = document.querySelector(".whosturn");
 
 
-function startGame(player) {  //gdzie te funkcje wywolac?
+function startGame() {
   output.style.visibility = "visible";
   output.innerHTML = `
   Select player
@@ -99,8 +99,9 @@ function showWinner(player) {
   if (player == null) {
     output.innerHTML = `It's a draw!`;
   } else {
-    output.innerHTML = `${player} won.<br> Game over!`;
+    output.innerHTML = `${player} won.<br><br>Game over!`;
   }
   gameFinished = true;
 }
+
 
