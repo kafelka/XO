@@ -9,33 +9,14 @@ body {
 }
 
 .container {
-  margin: 10vw auto;
+  margin: 7vw auto;
   background-color: rgb(37, 34, 34);
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  width: 34vw;
 }
-
-.output {
-  box-sizing: border-box;
-  padding: 5.5vw 0.8vw;
-  width: 14vw;
-  height: 14vw;
-  border: 1px solid black;
-  border-radius: 8px;
-  background-color: rgba(37, 34, 34, 0.78);
-  color: rgb(207, 10, 102);
-  z-index: 2;
-  position: fixed;
-  left: 43vw; top: 20vw;
-  font-family: Arial;
-  font-size: 1.8vw;
-  font-weight: bold;
-  text-align: center;
-  visibility: hidden;
-  vertical-align: middle;
-}
-
 
 .box {
   height: 34vw;
@@ -48,8 +29,27 @@ body {
   align-items: center;
 }
 
+.whosturn {
+  height: 3.4vw;
+  width: 14vw;
+  margin-top: 0.5vw;
+  box-sizing: border-box;
+  padding: 0.75vw 0.7vw;
+  background-color:rgb(20, 16, 240);
+  font-family: Arial;
+  font-size: 1.5vw;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  margin-left: 10vw;
+  visibility: hidden;
+}
+.whosturn p {
+  color: rgb(207, 10, 102);
+}
+
 .board  {
-  display: inline-block;
+  /* display: inline-block; */
   vertical-align: middle;
   width: calc(24vw + 4px);
 }
@@ -65,6 +65,26 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.output {
+  box-sizing: border-box;
+  padding: 3vw 0.8vw;
+  width: 14vw;
+  height: 14vw;
+  border: 1px solid black;
+  border-radius: 8px;
+  background-color: rgba(37, 34, 34, 0.78);
+  color: rgb(207, 10, 102);
+  z-index: 2;
+  position: fixed;
+  left: 43vw; top: 17vw;
+  font-family: Arial;
+  font-size: 1.8vw;
+  font-weight: bold;
+  text-align: center;
+  visibility: hidden;
+  vertical-align: middle;
 }
 
 [data-no^="0"] {
@@ -97,4 +117,8 @@ button {
 
 button:nth-of-type(2) {
   margin-left: 0.5vw;
+}
+
+p {
+  display: inline;
 }

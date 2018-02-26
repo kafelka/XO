@@ -3,6 +3,8 @@ let currentPlayer = "X";
 let gameFinished = false;
 let clickCounter = 0;
 let output = document.querySelector(".output");
+let yourTurn = document.querySelector(".whosturn p");
+let gameOver = document.querySelector(".whosturn");
 
 
 function startGame(player) {  //gdzie te funkcje wywolac?
@@ -19,6 +21,8 @@ startGame();
 
 function setCurrentPlayer(playerBtn) {
   currentPlayer = this.innerHTML;
+  gameOver.style.visibility = "visible";
+  yourTurn.innerHTML = `${currentPlayer}`;
 }
 
 fields.forEach(field => field.addEventListener("click", function() {
@@ -48,13 +52,12 @@ while(fields.length) {
 function changePlayer() {
   if (currentPlayer === "X") {
     currentPlayer = "O";
+    yourTurn.innerHTML = `${currentPlayer}`;
   } else {
     currentPlayer = "X";
+    yourTurn.innerHTML = `${currentPlayer}`;
   }
-
 };
-
-
 
 function winningFields(f) {
   f.style.color = "rgb(20, 16, 240)";
@@ -92,13 +95,12 @@ output.addEventListener("click", function clearBoard() {
 
 function showWinner(player) {
   output.style.visibility = "visible";
+  gameOver.style.visibility = "hidden";
   if (player == null) {
-    output.innerHTML = "It's a draw!";
+    output.innerHTML = `It's a draw!`;
   } else {
-    output.innerHTML = player + " won";
+    output.innerHTML = `${player} won.<br> Game over!`;
   }
   gameFinished = true;
 }
-
-
 
