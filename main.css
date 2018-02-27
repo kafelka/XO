@@ -6,16 +6,18 @@
 body {
   background: rgb(37, 34, 34);
   overflow: hidden;
+  font-family: Arial;
+  font-weight: bold;
 }
 
 .container {
+  width: 34vw;
   margin: 7vw auto;
   background-color: rgb(37, 34, 34);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 34vw;
 }
 
 .box {
@@ -36,20 +38,17 @@ body {
   box-sizing: border-box;
   padding: 0.75vw 0.7vw;
   background-color:rgb(20, 16, 240);
-  font-family: Arial;
   font-size: 1.5vw;
-  font-weight: bold;
   text-align: center;
   border-radius: 8px;
   margin-left: 10vw;
-  visibility: hidden;
+  display: none;
 }
 .whosturn p {
   color: rgb(207, 10, 102);
 }
 
 .board  {
-  /* display: inline-block; */
   vertical-align: middle;
   width: calc(24vw + 4px);
 }
@@ -59,9 +58,7 @@ body {
   height: 8vw;
   border: 1px solid black;
   float: left;
-  font-family: Arial;
   font-size: 2vw;
-  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,41 +71,43 @@ body {
   height: 14vw;
   border: 1px solid black;
   border-radius: 8px;
-  background-color: rgba(37, 34, 34, 0.78);
+  background-color: rgba(37, 34, 34, 0.75);
   color: rgb(207, 10, 102);
   z-index: 2;
   position: fixed;
   left: 43vw; top: 17vw;
-  font-family: Arial;
   font-size: 1.8vw;
-  font-weight: bold;
   text-align: center;
-  visibility: hidden;
   vertical-align: middle;
 }
+
+.startGame {
+ display: block;
+}
+
+.gameOver {
+ display: none;
+} 
 
 [data-no^="0"] {
   border-top: none;
 }
-
 [data-no^="2"] {
   border-bottom: none;
 }
-
 [data-no$="0"] {
   border-left: none;
 }
-
 [data-no$="2"] {
   border-right: none;
 } 
 
 button {
-  background: rgb(20, 16, 240);
   height: 3.5vw;
   width: 3.5vw;
-  border-radius: 10px;
+  background: rgb(20, 16, 240);
   border: 1px solid rgb(14, 11, 167);
+  border-radius: 10px;
   color: black;
   font-size: 1.7vw;
   font-weight: bold;

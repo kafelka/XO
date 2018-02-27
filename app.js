@@ -2,26 +2,17 @@ const fields = Array.from(document.querySelectorAll(".square"));
 let currentPlayer = "X";
 let gameFinished = false;
 let clickCounter = 0;
-let output = document.querySelector(".output");
-let yourTurn = document.querySelector(".whosturn p");
-let gameOver = document.querySelector(".whosturn");
-
-
-function startGame() {
-  output.style.visibility = "visible";
-  output.innerHTML = `
-  Select player
-  <button>X</button>
-  <button>O</button>
-  `
-  let btn = document.querySelectorAll("button");
-  btn.forEach(b => b.addEventListener("click", setCurrentPlayer));
-}
-startGame();
+const startGame = document.querySelector(".startGame");
+const gameOver = document.querySelector(".gameOver");
+const yourTurn = document.querySelector(".whosturn p");
+const whosturn = document.querySelector(".whosturn");
+const btn = document.querySelectorAll("button");
+btn.forEach(b => b.addEventListener("click", setCurrentPlayer));
 
 function setCurrentPlayer(playerBtn) {
   currentPlayer = this.innerHTML;
-  gameOver.style.visibility = "visible";
+  startGame.style.display = "none";
+  whosturn.style.display = "block";
   yourTurn.innerHTML = `${currentPlayer}`;
 }
 
@@ -32,10 +23,7 @@ fields.forEach(field => field.addEventListener("click", function() {
     let fieldCoords = this.dataset.no.split(",");
     const row = parseInt(fieldCoords[0]);
     const col = parseInt(fieldCoords[1]);
-    // console.log("fieldCoords: " + fieldCoords + " " + typeof(fieldCoords));
-    // console.log("fieldCoords[0] " + fieldCoords[0] + " " + typeof(fieldCoords[0]));
     if (checkIfGameEnded(row, col, currentPlayer)) {
-      console.log(currentPlayer + " won"); 
       showWinner(currentPlayer);
     } else if (clickCounter == 9) {
       showWinner(null);
@@ -63,6 +51,28 @@ function winningFields(f) {
   f.style.color = "rgb(20, 16, 240)";
 }
 
+gameOver.addEventListener("click", function clearBoard() {
+  document.querySelectorAll(".square").forEach(function(x){
+    x.innerHTML = "";
+    x.style.color = "black";
+  });
+  this.style.display = "none";
+  startGame.style.display = "block";
+  gameFinished = false;
+  clickCounter = 0;
+});
+
+function showWinner(player) {
+  gameOver.style.display = "block";
+  whosturn.style.display = "none";
+  if (player == null) {
+    gameOver.innerHTML = `It's a draw!`;
+  } else {
+    gameOver.innerHTML = `Player ${player} won!<br><br>Game over`;
+  }
+  gameFinished = true;
+}
+
 function checkIfGameEnded(row, col, symb) {
   if (newFields[row].every(x => x.innerHTML === symb)) {
     newFields[row].forEach(x => winningFields(x));
@@ -82,26 +92,3 @@ function checkIfGameEnded(row, col, symb) {
   }
   return false;
 }
-
-output.addEventListener("click", function clearBoard() {
-  document.querySelectorAll(".square").forEach(function(x){
-    x.innerHTML = "";
-    x.style.color = "black";
-  });
-  this.style.visibility = "hidden";
-  gameFinished = false;
-  clickCounter = 0;
-});
-
-function showWinner(player) {
-  output.style.visibility = "visible";
-  gameOver.style.visibility = "hidden";
-  if (player == null) {
-    output.innerHTML = `It's a draw!`;
-  } else {
-    output.innerHTML = `${player} won.<br><br>Game over!`;
-  }
-  gameFinished = true;
-}
-
-
